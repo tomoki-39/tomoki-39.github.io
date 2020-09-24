@@ -1,0 +1,49 @@
+// 変数宣言
+$link-color-active: red;
+$link-color-base: #333;
+$link-font-size: 16px;
+
+// 独自関数を定義
+@function active-font-size($base-size){
+    @return $base-size +2px;
+}
+
+// mixinで定義したクラスを使いまわす
+// extend は引数をとならないバージョン
+@mixin button( $font-size ) {
+    color: #333;
+    font-size: $font-size;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 16px;
+    border: 1px solid #333;
+    text-decoration: none;
+}
+
+// 入れ子形式で記述
+.lists {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; 
+
+    li {
+        width:25%;
+        text-align: center;
+
+        a {
+            @include button(16px);
+
+            // 疑似要素・クラスの書き方
+            &:hover{
+                color: red;
+            }
+            &.active{
+                font-size: active-font-size($link-font-size);
+                color: $link-color-active;
+            }
+        }
+    }
+}
+
+
